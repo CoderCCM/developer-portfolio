@@ -33,7 +33,7 @@ export const projectsData = [
         id: 4,
         title_name: 'FIRST Robotics',
         name: 'First Tech Challenge Robotics',
-        description: "Developed and continuously improved autonomous and remote control robot functionality. Collaborated with the mechanical and strategy teams to achieve 2nd place in the state finals twice.",
+        description: "Developed and continuously improved autonomous and remote control robot functionality. Collaborated with the mechanical and strategy teams to achieve 2nd place in the state finals two years in a row.",
         tools: ['Java', 'Android Studio'],
         code: '',
         demo: '',
