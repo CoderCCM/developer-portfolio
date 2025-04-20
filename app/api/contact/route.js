@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false, 
   auth: {
-    user: process.env.EMAIL_ADDRESS,
+    user: process.env.EMAIL_ADDRESS_LOGIN,
     pass: process.env.GMAIL_PASSKEY, 
   },
 });
@@ -51,7 +51,7 @@ async function sendEmail(payload, message) {
   
   const mailOptions = {
     from: "Portfolio", 
-    to: process.env.EMAIL_ADDRESS, 
+    to: process.env.EMAIL_ADDRESS_TO, 
     subject: `[Portfolio Website] New Message From ${name}`, 
     text: message, 
     html: generateEmailTemplate(name, email, userMessage), 
