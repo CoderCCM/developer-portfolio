@@ -83,7 +83,7 @@ import sqlalchemy from '../app/assets/svg/skills/sqlalchemy.svg'
 import fastapi from '../app/assets/svg/skills/fastapi.svg'
 
 import androidstudio from '../app/assets/svg/skills/Android Studio.svg';
-import android from '../app/assets/svg/skills/android.svg';
+import android from '../app/assets/svg/skills/Android.svg';
 import arduino from '../app/assets/svg/skills/Arduino.svg';
 import bitbucket from '../app/assets/svg/skills/BitBucket.svg';
 import digitalocean from '../app/assets/svg/skills/Digital Ocean.svg';
