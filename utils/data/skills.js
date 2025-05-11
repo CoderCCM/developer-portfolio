@@ -1,21 +1,38 @@
 export const skillsData = [
   'HTML',
   'CSS',
-  'Javascript',
-  'Git',
-  'AWS',
-  'Firebase',
-  'Svelte',
-  'Microsoft Office',
-  'C++',
+  'JavaScript',
   'Python',
+  'C++',
   'Java',
+  'NodeJS',
+  'React',
+  'Flask',
+  'Svelte',
+  'NumPy',
+  'AWS',
+  'Azure',
+  'Firebase',
+  'Digital Ocean',
+  'MongoDB',
+  'Git',
+  'GitHub',
+  'BitBucket',
+  'Jira',
+  'VS Code',
+  'Android Studio',
+  'Android',
+  'Arduino',
+  'Raspberry Pi',
+  'Microsoft Office',
+  'LaTeX',
   'Canva',
-]
+  'Slack',
+  'IFTTT'
+];
 
 // Choose your skills from below. Make sure it's in the same format and spelled correctly.
 // Couldn't find the required skills? Raise an issue on github at https://github.com/hhhrrrttt222111/developer-portfolio/issues/new
-
 
 // AVAILABLE SKILLS
 
@@ -26,7 +43,7 @@ export const skillsData = [
   React
   Next JS
   Nuxt JS
-  Node JS
+  NodeJS
   Vue
   Angular
   Docker
@@ -98,4 +115,25 @@ export const skillsData = [
   Tensorflow
   Webex
   Wordpress
+  Pandas
+  Sklearn
+  .NET
+  .NET Core
+  Kubernetes
+  Linux
+  SQLAlchemy
+  FastAPI
+  Slack
+  Raspberry Pi
+  LaTeX
+  IFTTT
+  Flask
+  Digital Ocean
+  Arduino
+  Android
+  Android Studio
+  VS Code
+  Jira
+  BitBucket
+  GitHub
 */

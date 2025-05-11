@@ -82,7 +82,20 @@ import linux from '../app/assets/svg/skills/linux.svg'
 import sqlalchemy from '../app/assets/svg/skills/sqlalchemy.svg'
 import fastapi from '../app/assets/svg/skills/fastapi.svg'
 
-
+import androidstudio from '../app/assets/svg/skills/Android Studio.svg';
+import android from '../app/assets/svg/skills/android.svg';
+import arduino from '../app/assets/svg/skills/Arduino.svg';
+import bitbucket from '../app/assets/svg/skills/BitBucket.svg';
+import digitalocean from '../app/assets/svg/skills/Digital Ocean.svg';
+import flask from '../app/assets/svg/skills/Flask.svg';
+import github from '../app/assets/svg/skills/GitHub.svg';
+import ifttt from '../app/assets/svg/skills/IFTTT.svg';
+import jira from '../app/assets/svg/skills/Jira.svg';
+import latex from '../app/assets/svg/skills/LaTeX.svg';
+import nodejs from '../app/assets/svg/skills/Node.js.svg';
+import raspberrypi from '../app/assets/svg/skills/Raspberry Pi.svg';
+import slack from '../app/assets/svg/skills/Slack.svg';
+import vscode from '../app/assets/svg/skills/Visual Studio Code (VS Code).svg';
 
 export const skillsImage = (skill) => {
   const skillID = skill.toLowerCase();
@@ -251,7 +264,35 @@ export const skillsImage = (skill) => {
       return sqlalchemy;
     case 'fastapi':
       return fastapi;
+    case 'android studio':
+      return androidstudio;
+    case 'android':
+      return android;
+    case 'arduino':
+      return arduino;
+    case 'bitbucket':
+      return bitbucket;
+    case 'digital ocean':
+      return digitalocean;
+    case 'flask':
+      return flask;
+    case 'github':
+      return github;
+    case 'ifttt':
+      return ifttt;
+    case 'jira':
+      return jira;
+    case 'latex':
+      return latex;
+    case 'nodejs':
+      return nodejs;
+    case 'raspberry pi':
+      return raspberrypi;
+    case 'slack':
+      return slack;
+    case 'vs code':
+      return vscode;
     default:
       break;
   }
-}
+};
