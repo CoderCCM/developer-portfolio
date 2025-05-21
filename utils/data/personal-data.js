@@ -2,7 +2,7 @@ export const personalData = {
   name: "Connor Magnuson",
   profile: '/profile.png',
   designation: "Full-Stack Software Engineer",
-  description: "My name is Connor Magnuson. I am always focused and determined, often recognized for my leadership abilities, committed to treating all individuals with respect, a lifelong volunteer who finds great satisfaction in helping others, and an undergraduate majoring in computer science who started writing code at the age of eight.",
+  description: "Hi, I'm Connor Magnuson, a computer science undergrad with a passion for building things that make a difference. I started coding when I was eight, and I've been hooked ever since. I'm known for staying focused, thinking clearly under pressure, and stepping up as a leader when it counts. I care deeply about treating people with respect and have always found purpose in volunteering and helping others.",
   address: 'Rockford, IL',
   github: 'https://github.com/coderccm',
   linkedIn: 'https://www.linkedin.com/in/connor-c-magnuson/',
