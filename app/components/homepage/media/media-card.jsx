@@ -28,7 +28,7 @@ function MediaCard({ media }) {
             {media.title}
           </p>
         </Link>
-        <p className='text-sm lg:text-base text-[#d3d8e8] pb-3 lg:pb-6 line-clamp-3'>
+        <p className='text-sm lg:text-base text-[#d3d8e8] pb-3 lg:pb-6'>
           {media.description}
         </p>
         {/* <div className="">
