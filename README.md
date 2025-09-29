@@ -1,1 +1,1 @@
-# [Built Portfolio With GitHub ](https://github.com/said7388/github-portfolio)
+# Personal Website. Check it out [here](https://connormagnuson.com)
