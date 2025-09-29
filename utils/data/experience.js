@@ -13,6 +13,12 @@ export const experiences = [
   },
   {
     id: 3,
+    title: 'Software Engineering Intern',
+    company: "RR1 Solutions",
+    duration: "July 2024 - Aug 2024"
+  },
+  {
+    id: 4,
     title: "Mathematics Instructor",
     company: "Mathnasium of Rockford",
     duration: "Apr 2024 - Aug 2024"

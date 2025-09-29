@@ -1,24 +1,39 @@
 export const skillsData = [
+  //Resume: Programming Languages
+  'Java',
+  'Kotlin',
+  'Python',
+  'C',
+  'C++',
   'HTML',
   'CSS',
   'JavaScript',
-  'Python',
-  'C++',
-  'Java',
-  'NodeJS',
-  'React',
-  'Flask',
+  //TODO: Verilog
+  //TODO: Assembly
+
+  
+  //Resume: Frameworks/Tools
   'Svelte',
-  'NumPy',
-  'AWS',
-  'Azure',
-  'Firebase',
-  'Digital Ocean',
-  'MongoDB',
+  'React',
+  'NodeJS',
+  //TODO: Express
   'Git',
-  'GitHub',
   'BitBucket',
+  //TODO: Agile
   'Jira',
+  'AWS',
+  'Firebase',
+  'MongoDB',
+  //TODO: MQTT
+  //TODO: Jenkins
+
+
+  //Other:
+  'Flask',
+  'NumPy',
+  'Azure',
+  'Digital Ocean',
+  'GitHub',
   'VS Code',
   'Android Studio',
   'Android',
