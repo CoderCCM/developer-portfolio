@@ -20,7 +20,7 @@ function MediaCard({ media }) {
         />
       </div>
       <div className="p-2 sm:p-3 flex flex-col">
-        <div className="flex justify-between items-center text-[#16f2b3] text-sm">
+        <div className="flex justify-between items-center text-orange-500 text-sm">
           <p>{timeConverter(media.published_at)}</p>
         </div>
         <Link target='_blank' href={media.url}>
