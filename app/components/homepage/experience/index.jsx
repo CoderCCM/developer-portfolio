@@ -2,7 +2,6 @@
 
 import { experiences } from "@/utils/data/experience";
 import Image from "next/image";
-import { BsPersonWorkspace } from "react-icons/bs";
 import experience from '../../../assets/lottie/code.json';
 import AnimationLottie from "../../helper/animation-lottie";
 import GlowCard from "../../helper/glow-card";
@@ -29,51 +28,46 @@ function Experience() {
       </div>
 
       <div className="py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-          <div className="flex justify-center items-start">
-            <div className="w-full h-full">
-              <AnimationLottie animationPath={experience} />
-            </div>
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-stretch">
+  {/* Left: GIF */}
+  <div className="flex justify-center">
+    <div className="self-center w-full max-w-lg">
+      <AnimationLottie animationPath={experience} />
+    </div>
+  </div>
 
-          <div>
-            <div className="flex flex-col gap-6">
-              {
-                experiences.map(experience => (
-                  <GlowCard key={experience.id} identifier={`experience-${experience.id}`}>
-                    <div className="p-3 relative">
-                      <Image
-                        src="/blur-23.svg"
-                        alt="Hero"
-                        width={1080}
-                        height={200}
-                        className="absolute bottom-0 opacity-80"
-                      />
-                      <div className="flex justify-center">
-                        <p className="text-xs sm:text-sm text-orange-500">
-                          {experience.duration}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-x-8 px-3 py-5">
-                        <div className="text-violet-500  transition-all duration-300 hover:scale-125">
-                          <BsPersonWorkspace size={36} />
-                        </div>
-                        <div>
-                          <p className="text-base sm:text-xl mb-2 font-medium uppercase">
-                            {experience.title}
-                          </p>
-                          <p className="text-sm sm:text-base">
-                            {experience.company}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </GlowCard>
-                ))
-              }
+  {/* Right: Experience cards */}
+  <div className="flex flex-col gap-6">
+    {experiences.map(experience => (
+      <GlowCard key={experience.id} identifier={`experience-${experience.id}`}>
+        <div className="p-3 relative">
+          <Image
+            src="/blur-23.svg"
+            alt="Hero"
+            width={1080}
+            height={200}
+            className="absolute bottom-0 opacity-80"
+          />
+          <div className="flex justify-center">
+            <p className="text-xs sm:text-sm text-orange-500">{experience.duration}</p>
+          </div>
+          <div className="flex items-center gap-x-8 px-3 py-5">
+            <div className="text-orange-500 transition-all duration-300 hover:scale-125">
+              {experience.icon}
+            </div>
+            <div>
+              <p className="text-base sm:text-xl mb-2 font-medium uppercase">
+                {experience.title}
+              </p>
+              <p className="text-sm sm:text-base">{experience.company}</p>
             </div>
           </div>
         </div>
+      </GlowCard>
+    ))}
+  </div>
+</div>
+
       </div>
     </div>
   );

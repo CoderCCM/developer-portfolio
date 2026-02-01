@@ -5,7 +5,7 @@ export const projectsData = [
         name: 'Illini Solar Car - Cloud-Based Telemetry System',
         description: "Replacing the existing range-limited antenna telemetry system with a redundant, low-latency, cloud-based system. Streaming over 16,000 CAN messages per minute with local and cloud datalogging and >99% uptime. Supporting the system during competitions, allowing the team to track over 180 vital statistics in real-time.",
         tools: ['Java', 'Android Studio', 'React', 'Python', 'MQTT', 'DigitalOcean'],
-        role: 'Full-Stack Developer',
+        role: 'Full Stack Developer',
         code: '',
         demo: '',
     },
