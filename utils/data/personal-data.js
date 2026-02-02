@@ -6,5 +6,5 @@ export const personalData = {
   address: 'Rockford, IL',
   github: 'https://github.com/coderccm',
   linkedIn: 'https://www.linkedin.com/in/connor-c-magnuson/',
-  resume: "https://drive.google.com/file/d/1wcrE2T3H97erNe1IBHhlVl3BPS65aNUx/view?usp=sharing"
+  resume: "/resumes/ConnorMagnusonResume.pdf"
 }

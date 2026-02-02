@@ -9,7 +9,7 @@ function ResearchCard({ paper }) {
 
       {/* Top: Title + Date */}
       <div className="px-4 py-3 bg-gradient-to-r from-[#0a0d37] to-[#0d1224] flex flex-col">
-        <Link target="_blank" href={paper.url}>
+        <Link href={paper.url}>
           <p className="text-white text-lg lg:text-xl font-semibold hover:text-orange-500 cursor-pointer">
             {paper.title}
           </p>
@@ -36,7 +36,7 @@ function ResearchCard({ paper }) {
           <span className="text-gray-400">]</span>
         </div>
         <div className="mt-2">
-          <Link target="_blank" href={paper.url} className="text-orange-500 hover:underline">
+          <Link href={paper.url} className="text-orange-500 hover:underline">
             Read Full Paper
           </Link>
         </div>
