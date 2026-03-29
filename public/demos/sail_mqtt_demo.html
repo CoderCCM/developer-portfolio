@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Data Demo</title>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: auto;
+      padding: 16px;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .sub {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+    }
+
+    .card {
+      background: #020617;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #1e293b;
+    }
+
+    #chat {
+      height: 180px;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .msg {
+      margin-bottom: 4px;
+    }
+
+    input {
+      width: 80px;
+      padding: 6px;
+      border-radius: 6px;
+      border: none;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .rooms {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .rooms button {
+      flex: 1;
+      padding: 6px;
+      border-radius: 8px;
+      border: none;
+      background: #1e293b;
+      color: white;
+      font-size: 13px;
+    }
+
+    .rooms button.active {
+      background: #2563eb;
+    }
+
+    .emoji-bar {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .emoji-bar button {
+      font-size: 20px;
+      padding: 8px;
+      border: none;
+      border-radius: 10px;
+      background: #1e293b;
+      flex: 1;
+      margin: 2px;
+    }
+
+    #debug {
+      font-size: 11px;
+      color: #94a3b8;
+      height: 100px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Live Data</h1>
+  <div class="sub">No refresh. Everything updates instantly.</div>
+
+  <div class="card">
+    <div>Initials</div>
+    <input id="initials" maxlength="3" placeholder="AB">
+    
+    <div class="rooms">
+      <button onclick="switchRoom('general')" id="btn-general">general</button>
+      <button onclick="switchRoom('lunch')" id="btn-lunch">lunch</button>
+      <button onclick="switchRoom('sports')" id="btn-sports">sports</button>
+      <button onclick="switchRoom('random')" id="btn-random">random</button>
+    </div>
+
+    <div id="chat"></div>
+
+    <div class="emoji-bar" id="emojiBar"></div>
+  </div>
+
+  <div class="card">
+    <div style="margin-bottom:6px;">under the hood</div>
+    <div id="debug"></div>
+  </div>
+
+</div>
+
+<script>
+  const baseTopic = "sail/demo/";
+  let currentRoom = "general";
+  let currentTopic = baseTopic + currentRoom;
+
+  const emojisByRoom = {
+    general: ["👍","🔥","😂","💀","👀"],
+    lunch: ["🍕","🍔","🌮","🥤","🍟"],
+    sports: ["🏈","⚽","🏀","⚾","🏎️"],
+    random: ["🚀","🐸","🎉","🤯","🌀"]
+  };
+
+  const client = mqtt.connect("wss://broker.hivemq.com:8884/mqtt");
+
+  const chat = document.getElementById("chat");
+  const debug = document.getElementById("debug");
+  const emojiBar = document.getElementById("emojiBar");
+
+  function log(msg) {
+    const t = new Date().toLocaleTimeString();
+    debug.innerHTML += `[${t}] ${msg}<br>`;
+    debug.scrollTop = debug.scrollHeight;
+  }
+
+  function addMessage(msg) {
+    const div = document.createElement("div");
+    div.className = "msg";
+    div.textContent = msg;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function getInitials() {
+    let val = document.getElementById("initials").value.trim().toUpperCase();
+    return val || "??";
+  }
+
+  function updateEmojiBar() {
+    emojiBar.innerHTML = "";
+    emojisByRoom[currentRoom].forEach(e => {
+      const btn = document.createElement("button");
+      btn.textContent = e;
+      btn.onclick = () => sendEmoji(e);
+      emojiBar.appendChild(btn);
+    });
+  }
+
+  function setActiveButton() {
+    document.querySelectorAll(".rooms button").forEach(b => b.classList.remove("active"));
+    document.getElementById("btn-" + currentRoom).classList.add("active");
+  }
+
+  client.on("connect", () => {
+    log("connected");
+    client.subscribe(currentTopic);
+    log("subscribed → " + currentTopic);
+  });
+
+  client.on("message", (topic, message) => {
+    const msg = message.toString();
+    addMessage(msg);
+    log("recv → " + topic);
+  });
+
+  function switchRoom(room) {
+    if (room === currentRoom) return;
+
+    client.unsubscribe(currentTopic);
+    log("unsub → " + currentTopic);
+
+    currentRoom = room;
+    currentTopic = baseTopic + room;
+
+    chat.innerHTML = "";
+
+    client.subscribe(currentTopic);
+    log("sub → " + currentTopic);
+
+    updateEmojiBar();
+    setActiveButton();
+  }
+
+  function sendEmoji(e) {
+    const payload = getInitials() + ": " + e;
+    client.publish(currentTopic, payload);
+    log("send → " + currentTopic);
+  }
+
+  updateEmojiBar();
+  setActiveButton();
+</script>
+
+</body>
+</html>
