@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS128 — Even More Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --surface: rgba(255,255,255,0.72);
+  --surfaceS: rgba(255,255,255,0.55);
+  --border: rgba(0,0,0,0.09);
+  --text: #1C1C1E;
+  --muted: #6E6E73;
+  --blue: #3478F6;
+  --red: #E0454A;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+html, body { width:100%; height:100%; overflow:hidden; font-family:var(--font); color:var(--text); -webkit-font-smoothing:antialiased; }
+
+.bg { position:fixed; inset:0; z-index:0; background:#f4f4fa; }
+.blob { position:absolute; border-radius:50%; filter:blur(90px); animation:blobDrift ease-in-out infinite alternate; }
+.b1 { width:55vw;height:55vw;top:-15vw;left:-10vw;  background:#C7D2FE;opacity:0.6;animation-duration:11s; }
+.b2 { width:40vw;height:40vw;top:20%;  right:-8vw;  background:#FBD0E8;opacity:0.55;animation-duration:9s;animation-delay:1.5s; }
+.b3 { width:38vw;height:38vw;bottom:-8vw;left:15%;  background:#BBF7D0;opacity:0.5;animation-duration:13s;animation-delay:0.5s; }
+.b4 { width:28vw;height:28vw;bottom:5%;right:12%;   background:#FEF9C3;opacity:0.65;animation-duration:8s;animation-delay:3s; }
+.b5 { width:22vw;height:22vw;top:35%;  left:35%;    background:#E0D9FF;opacity:0.4;animation-duration:15s;animation-delay:2s; }
+@keyframes blobDrift { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(25px,18px) scale(1.07)} }
+
+.screen { position:relative;z-index:10;width:100%;height:100vh;display:grid;grid-template-rows:52px 1fr 64px; }
+
+/* NAVBAR */
+.navbar {
+  display:flex;align-items:center;justify-content:space-between;padding:0 26px;gap:16px;
+  background:var(--surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);z-index:20;
+}
+.nav-wordmark { font-size:.92rem;font-weight:800;letter-spacing:-.02em;color:var(--text);white-space:nowrap;flex-shrink:0; }
+.nav-right { display:flex;align-items:center;gap:8px; }
+.nav-date { font-size:.78rem;font-weight:500;color:var(--muted);padding:4px 12px;background:var(--surfaceS);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:6px; }
+.nav-btn { display:flex;align-items:center;gap:5px;padding:5px 13px;border:1px solid var(--border);border-radius:6px;background:var(--surfaceS);backdrop-filter:blur(12px);font-family:var(--font);font-size:.78rem;font-weight:600;color:var(--text);cursor:pointer;transition:background .12s; }
+.nav-btn:hover { background:rgba(255,255,255,.9); }
+.nav-btn.primary { background:var(--text);color:white;border-color:transparent; }
+.nav-btn.primary:hover { background:#333; }
+
+/* MAIN */
+.main { display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px;gap:0; }
+.howdy-tag { display:inline-flex;align-items:center;gap:8px;background:var(--surface);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:99px;padding:5px 16px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:18px; }
+.live-dot { width:6px;height:6px;border-radius:50%;background:var(--blue);animation:livePulse 2s ease-in-out infinite; }
+@keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.6)} }
+.big-title { font-size:clamp(3.6rem,10vw,9rem);font-weight:900;letter-spacing:-.045em;line-height:.93;color:var(--text);margin-bottom:20px; }
+.activity-chip { display:inline-flex;align-items:center;gap:9px;font-size:clamp(.9rem,1.9vw,1.35rem);font-weight:600;color:var(--muted);background:var(--surface);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:10px;padding:8px 22px;margin-bottom:32px; }
+
+/* STAFF */
+.staff-area { display:flex;flex-direction:column;align-items:center;gap:10px; }
+.staff-label { font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted); }
+.staff-row { display:flex;align-items:flex-end;gap:clamp(12px,2vw,28px);flex-wrap:wrap;justify-content:center; }
+.staff-card { display:flex;flex-direction:column;align-items:center;gap:8px; }
+
+.cowboy-emoji {
+  font-size:clamp(52px,7.5vw,96px);
+  line-height:1;
+  display:block;
+  animation:staffBob 3.6s ease-in-out infinite;
+  filter:drop-shadow(0 4px 12px rgba(0,0,0,0.13));
+  cursor:default;
+  user-select:none;
+}
+.staff-card:nth-child(2) .cowboy-emoji { animation-delay:.6s; }
+.staff-card:nth-child(3) .cowboy-emoji { animation-delay:1.2s; }
+.staff-card:nth-child(4) .cowboy-emoji { animation-delay:1.8s; }
+.staff-card:nth-child(5) .cowboy-emoji { animation-delay:2.4s; }
+.cowboy-emoji:hover { animation-play-state:paused; transform:scale(1.12) translateY(-6px); }
+@keyframes staffBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+.staff-name { font-size:clamp(.62rem,.95vw,.82rem);font-weight:600;color:var(--text);background:var(--surface);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:6px;padding:2px 10px; }
+
+/* BOTTOM BAR */
+.bottom-bar { display:flex;align-items:center;justify-content:center;padding:0 26px;background:var(--surface);backdrop-filter:blur(20px);border-top:1px solid var(--border); }
+.msg-area { display:flex;align-items:center;gap:10px;overflow:hidden;flex:1;justify-content:center; }
+.msg-label { font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;flex-shrink:0; }
+.msg-sep { width:1px;height:18px;background:var(--border);flex-shrink:0; }
+.msg-text { font-size:clamp(.76rem,1.15vw,.92rem);font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .28s ease,transform .28s ease;opacity:1;transform:translateY(0); }
+.msg-text.out { opacity:0;transform:translateY(-9px); }
+.msg-text.in  { opacity:0;transform:translateY(9px); }
+.countdown-pill { display:flex;align-items:center;gap:12px;background:var(--surfaceS);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:9px;padding:8px 18px;flex-shrink:0; }
+.cd-label { font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted); }
+.cd-time { font-size:clamp(1.25rem,2.5vw,1.85rem);font-weight:800;letter-spacing:-.03em;color:var(--text);font-variant-numeric:tabular-nums;line-height:1;transition:color .3s; }
+.cd-time.urgent { color:var(--red);animation:urgFlash .85s ease-in-out infinite; }
+@keyframes urgFlash { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+/* Hide nav buttons in fullscreen */
+.nav-btn { transition: opacity .5s ease, background .12s; }
+:fullscreen .nav-btn, :-webkit-full-screen .nav-btn {
+  opacity: 0 !important; pointer-events: none !important;
+}
+
+/* Date shifts right + grows in fullscreen */
+.nav-date { transition: font-size .4s ease, margin-left .4s ease; }
+:fullscreen .nav-date, :-webkit-full-screen .nav-date {
+  font-size: 1rem !important; font-weight: 600 !important;
+  margin-left: auto;
+}
+
+/* T-2 MINUTE INLINE COUNTDOWN — sits below staff, above bottom bar */
+.inline-cd {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height .7s ease, opacity .7s ease, margin-top .7s ease;
+  margin-top: 0;
+}
+.inline-cd.visible {
+  max-height: 160px;
+  opacity: 1;
+  margin-top: 20px;
+}
+.inline-cd-label {
+  font-size: .68rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.inline-cd-time {
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  font-weight: 900; letter-spacing: -.04em; line-height: 1;
+  color: var(--text); font-variant-numeric: tabular-nums;
+  transition: color .3s;
+}
+.inline-cd-time.urgent {
+  color: var(--red);
+  animation: urgFlash .85s ease-in-out infinite;
+}
+
+/* MODAL */
+.overlay { position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.28);display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px); }
+.overlay.open { display:flex; }
+.modal { background:rgba(255,255,255,.97);border:1px solid var(--border);border-radius:18px;width:min(560px,95vw);max-height:93vh;overflow-y:auto;box-shadow:0 20px 70px rgba(0,0,0,.12);display:flex;flex-direction:column; }
+.modal-head { display:flex;align-items:center;justify-content:space-between;padding:22px 24px 0; }
+.modal-head h2 { font-size:1.05rem;font-weight:800;letter-spacing:-.02em; }
+.modal-close { width:26px;height:26px;border-radius:50%;background:#F2F2F7;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.78rem;color:var(--muted);transition:background .12s; }
+.modal-close:hover { background:#E5E5EA;color:var(--text); }
+.modal-body { padding:18px 24px 4px;display:flex;flex-direction:column;gap:15px; }
+.two-col { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+.f { display:flex;flex-direction:column;gap:4px; }
+.f label { font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted); }
+.f input,.f select,.f textarea { padding:8px 11px;border:1px solid #D1D1D6;border-radius:8px;font-family:var(--font);font-size:.88rem;font-weight:500;color:var(--text);background:white;outline:none;transition:border-color .15s,box-shadow .15s; }
+.f input:focus,.f select:focus,.f textarea:focus { border-color:var(--blue);box-shadow:0 0 0 3px rgba(52,120,246,.1); }
+.f textarea { resize:vertical;min-height:85px;line-height:1.55; }
+.mdiv { height:1px;background:#F2F2F7; }
+
+.staff-rows { display:flex;flex-direction:column;gap:8px; }
+.s-row { display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center; }
+.s-row input[type=text] { font-size:.88rem; }
+.s-del { width:30px;height:30px;border-radius:7px;border:1px solid #E5E5EA;background:none;cursor:pointer;font-size:.82rem;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all .12s;align-self:center; }
+.s-del:hover { background:#FEE2E2;border-color:#FCA5A5;color:#EF4444; }
+.add-s-btn { padding:7px;width:100%;border:1px dashed #D1D1D6;border-radius:8px;background:none;font-family:var(--font);font-size:.8rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .13s; }
+.add-s-btn:hover { border-color:var(--blue);color:var(--blue);border-style:solid;background:rgba(52,120,246,.03); }
+.modal-foot { display:flex;gap:9px;padding:16px 24px 22px; }
+.btn-apply { flex:1;padding:10px;background:var(--text);color:white;border:none;border-radius:8px;font-family:var(--font);font-size:.9rem;font-weight:700;cursor:pointer;transition:background .13s; }
+.btn-apply:hover { background:#333; }
+.btn-cancel { padding:10px 18px;border-radius:8px;border:1px solid #D1D1D6;background:#F2F2F7;font-family:var(--font);font-size:.9rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .13s; }
+.btn-cancel:hover { border-color:var(--text);color:var(--text); }
+.modal::-webkit-scrollbar { width:4px; }
+.modal::-webkit-scrollbar-thumb { background:#D1D1D6;border-radius:99px; }
+</style>
+</head>
+<body>
+
+<div class="bg">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="blob b3"></div><div class="blob b4"></div><div class="blob b5"></div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Configure Session</h2>
+      <button class="modal-close" onclick="closeEdit()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="two-col">
+        <div class="f"><label>Main Title</label><input type="text" id="cfg-title" value="Even More Practice"></div>
+        <div class="f"><label>Activity / Topic</label><input type="text" id="cfg-activity" value="Trees &amp; Recursion"></div>
+      </div>
+      <div class="two-col">
+        <div class="f"><label>Tag Label</label><input type="text" id="cfg-section" value="Extra Practice"></div>
+        <div class="f"><label>Class Start Time (24h)</label><input type="time" id="cfg-time" value="19:35"></div>
+      </div>
+      <div class="mdiv"></div>
+      <div class="f">
+        <label>Staff Teaching Today</label>
+        <div class="staff-rows" id="staffRows"></div>
+        <button class="add-s-btn" onclick="addStaffRow()">+ Add person</button>
+      </div>
+      <div class="mdiv"></div>
+      <div class="f">
+        <label>Announcements (one per line)</label>
+        <textarea id="cfg-msgs">You can find all Even More Practice activities on the website under "More Practice"!
+Many lessons include Additional Practice problems!
+Pair up — two minds are better than one.
+We're here to help!
+Questions? Grab a staff member!
+Attend In-Person Quiz Reviews!
+Howdy, Welcome Back!</textarea>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-apply" onclick="applyConfig()">Apply</button>
+      <button class="btn-cancel" onclick="closeEdit()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- T-2 min countdown takeover (removed - now inline) -->
+
+<div class="screen">
+  <nav class="navbar">
+    <div class="nav-wordmark">CS 128 · Illinois</div>
+    <div class="msg-area">
+      <span class="msg-label">Note</span>
+      <div class="msg-sep"></div>
+      <span class="msg-text" id="msgText">You can find all Even More Practice activities on the website under "More Practice"!</span>
+    </div>
+    <div class="nav-right">
+      <div class="nav-date" id="liveDate"></div>
+      <button class="nav-btn" onclick="openEdit()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l-.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Configure
+      </button>
+      <button class="nav-btn primary" onclick="goFullscreen()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        Fullscreen
+      </button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="howdy-tag"><div class="live-dot"></div><span id="sectionLabel">Extra Practice</span></div>
+    <h1 class="big-title" id="bigTitle">Even More<br>Practice</h1>
+    <div class="activity-chip"><span id="activityName">Trees &amp; Recursion</span></div>
+    <div class="staff-area">
+      <div class="staff-label">Your Staff Today</div>
+      <div class="staff-row" id="staffDisplay"></div>
+    </div>
+    <div class="inline-cd" id="inlineCd">
+      <div class="inline-cd-label">Starting in</div>
+      <div class="inline-cd-time" id="inlineCdTime">02:00</div>
+    </div>
+  </main>
+
+  <div class="bottom-bar">
+    <div class="countdown-pill">
+      <div class="cd-label">Starts in</div>
+      <div class="cd-time" id="cdTime">--:--</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   COWBOY EMOJI SVG — faithfully replicates the 🤠 emoji
+   design (large round yellow face, big smile, eyes, rosy
+   cheeks, wide-brimmed tan cowboy hat) with the face color
+   swapped to match the chosen Fitzpatrick skin tone.
+═══════════════════════════════════════════════════════ */
+
+const SKINS = {
+  'Default':      { face:'#FCCB43', shadow:'#E8A800', lip:'#C47020', blush:'#E8673A' },
+  'Light':        { face:'#FDDBB4', shadow:'#DEAD80', lip:'#C07850', blush:'#E8906A' },
+  'Medium-Light': { face:'#F4BE80', shadow:'#D49050', lip:'#B06030', blush:'#D87848' },
+  'Medium':       { face:'#D4884A', shadow:'#A86028', lip:'#905030', blush:'#C06038' },
+  'Medium-Dark':  { face:'#A85C2C', shadow:'#7C3C14', lip:'#703018', blush:'#9A4028' },
+  'Dark':         { face:'#5C3018', shadow:'#3C1C08', lip:'#4A2010', blush:'#6A2C18' },
+};
+const SKIN_KEYS = Object.keys(SKINS);
+
+/* The hat is always the classic tan/brown cowboy hat color —
+   matches the actual 🤠 emoji exactly */
+function makeCowboySVG(skinKey) {
+  const s = SKINS[skinKey] || SKINS['Default'];
+  const id = 'cw_' + skinKey.replace(/[^a-z]/gi,'');
+
+  return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="${id}f" cx="38%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="${lighten(s.face, 28)}"/>
+      <stop offset="55%" stop-color="${s.face}"/>
+      <stop offset="100%" stop-color="${s.shadow}"/>
+    </radialGradient>
+    <radialGradient id="${id}hat" cx="40%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#D4A84B"/>
+      <stop offset="100%" stop-color="#8B6520"/>
+    </radialGradient>
+    <radialGradient id="${id}hatbrim" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#C49838"/>
+      <stop offset="100%" stop-color="#7A5418"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ── FACE CIRCLE ── -->
+  <circle cx="50" cy="54" r="36" fill="url(#${id}f)"/>
+  <!-- Face outline — subtle, like emoji -->
+  <circle cx="50" cy="54" r="36" fill="none" stroke="${s.shadow}" stroke-width="1.2" stroke-opacity="0.25"/>
+
+  <!-- ── EYES ── two large oval eyes -->
+  <!-- Eye whites -->
+  <ellipse cx="38" cy="50" rx="7" ry="8" fill="white"/>
+  <ellipse cx="62" cy="50" rx="7" ry="8" fill="white"/>
+  <!-- Iris — dark brown, emoji style -->
+  <circle cx="38.5" cy="51" r="4.8" fill="#3D2000"/>
+  <circle cx="62.5" cy="51" r="4.8" fill="#3D2000"/>
+  <!-- Pupil -->
+  <circle cx="39" cy="51.5" r="2.8" fill="#1A0A00"/>
+  <circle cx="63" cy="51.5" r="2.8" fill="#1A0A00"/>
+  <!-- Catchlights -->
+  <circle cx="40.5" cy="49.2" r="1.5" fill="white"/>
+  <circle cx="64.5" cy="49.2" r="1.5" fill="white"/>
+  <circle cx="37.5" cy="53" r="0.8" fill="white" opacity="0.6"/>
+  <circle cx="61.5" cy="53" r="0.8" fill="white" opacity="0.6"/>
+  <!-- Eyelid upper line -->
+  <path d="M31,46 Q38,42 45,46" stroke="#3D2000" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M55,46 Q62,42 69,46" stroke="#3D2000" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+  <!-- ── EYEBROWS — thick, friendly arch ── -->
+  <path d="M30,42 Q38,37.5 46,41" stroke="#3D2000" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M54,41 Q62,37.5 70,42" stroke="#3D2000" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+
+  <!-- ── NOSE — simple round dots like emoji ── -->
+  <circle cx="46" cy="60" r="2.2" fill="${s.shadow}" opacity="0.55"/>
+  <circle cx="54" cy="60" r="2.2" fill="${s.shadow}" opacity="0.55"/>
+
+  <!-- ── ROSY CHEEKS ── -->
+  <ellipse cx="28" cy="63" rx="9" ry="6" fill="${s.blush}" opacity="0.45"/>
+  <ellipse cx="72" cy="63" rx="9" ry="6" fill="${s.blush}" opacity="0.45"/>
+
+  <!-- ── BIG SMILE ── wide grin with teeth showing -->
+  <!-- Mouth opening -->
+  <path d="M33,68 Q50,82 67,68" fill="#7A1F00"/>
+  <!-- Teeth -->
+  <path d="M35,68 Q50,80 65,68 Q56,74 44,74 Z" fill="white"/>
+  <!-- Smile line / lip curve -->
+  <path d="M33,68 Q50,82 67,68" fill="none" stroke="${s.lip}" stroke-width="1.5"/>
+
+  <!-- ── COWBOY HAT ──
+       Classic 🤠 tan/brown hat: wide flat brim, tall crown, pinched top
+  ── -->
+  <!-- Brim shadow beneath -->
+  <ellipse cx="50" cy="22" rx="44" ry="9" fill="rgba(0,0,0,0.15)" transform="translate(0,3)"/>
+  <!-- Brim underside -->
+  <ellipse cx="50" cy="22" rx="44" ry="8.5" fill="#7A5418"/>
+  <!-- Brim top surface -->
+  <ellipse cx="50" cy="21" rx="43" ry="8" fill="url(#${id}hatbrim)"/>
+  <!-- Brim highlight -->
+  <path d="M10,19 Q50,14 90,19" stroke="white" stroke-width="1" fill="none" stroke-opacity="0.2"/>
+
+  <!-- Crown body — tall, slightly tapered -->
+  <path d="M26,21 L29,-8 Q50,-16 71,-8 L74,21 Z" fill="url(#${id}hat)"/>
+
+  <!-- Crown left shadow -->
+  <path d="M26,21 L29,-8 Q34,-13 38,-13 L36,-8 Q32,-4 30,12 Z" fill="#7A5418" opacity="0.4"/>
+
+  <!-- Top dent (classic cowboy pinch at crown) -->
+  <path d="M31,-6 Q50,-17 69,-6 Q60,-10 50,-11 Q40,-10 31,-6 Z" fill="#7A5418" opacity="0.5"/>
+  <!-- Crown top highlight -->
+  <path d="M34,-4 Q42,-12 50,-13" stroke="white" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-opacity="0.25"/>
+
+  <!-- Hat band — dark brown stripe -->
+  <path d="M27,18 L29,10 Q50,13 71,10 L73,18 Q50,21 27,18 Z" fill="#5C3A10" opacity="0.8"/>
+  <!-- Band buckle highlight -->
+  <rect x="46" y="11" width="8" height="5" rx="1.5" fill="#C49838" opacity="0.7"/>
+</svg>`;
+}
+
+/* tiny colour helper */
+function lighten(hex, amt) {
+  const n = parseInt(hex.slice(1), 16);
+  const r = Math.min(255,((n>>16)&255)+amt);
+  const g = Math.min(255,((n>>8)&255)+amt);
+  const b = Math.min(255,(n&255)+amt);
+  return `rgb(${r},${g},${b})`;
+}
+
+/* ── LOCAL STORAGE ── */
+const STORAGE_KEY = 'cs128_config';
+function saveConfig() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(config)); } catch(e) {}
+}
+function loadConfig() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) Object.assign(config, JSON.parse(saved));
+  } catch(e) {}
+}
+
+/* ── CONFIG ── */
+let config = {
+  title:    'Even More\nPractice',
+  activity: 'Trees & Recursion',
+  section:  'Extra Practice',
+  startTime:'19:35',
+  staff: [
+    { name:'Alex'   },
+    { name:'Jordan' },
+    { name:'Sam'    },
+  ],
+  messages: [
+    'You can find all Even More Practice activities on the website under "More Practice',
+'Many lessons include Additional Practice problems',
+'Pair up — two minds are better than one.',
+"We're here to help!",
+"Questions? Grab a staff member!",
+"Attend In-Person Quiz Reviews!",
+"Howdy, Welcome Back!"
+  ]
+};
+
+function renderAll() {
+  document.getElementById('bigTitle').innerHTML = config.title.replace('\n','<br>');
+  document.getElementById('activityName').textContent = config.activity;
+  document.getElementById('sectionLabel').textContent = config.section;
+  renderStaff();
+}
+function renderStaff() {
+  document.getElementById('staffDisplay').innerHTML = config.staff.map(s => `
+    <div class="staff-card">
+      <span class="cowboy-emoji">&#129312;</span>
+      <div class="staff-name">${s.name}</div>
+    </div>`).join('');
+}
+loadConfig();
+renderAll();
+
+/* date */
+function updateDate() {
+  document.getElementById('liveDate').textContent =
+    new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+}
+updateDate();
+
+/* countdown */
+const TAKEOVER_THRESHOLD = 120; // 2 minutes
+let takeoverActive = false;
+
+function updateCountdown() {
+  const now=new Date(), [h,m]=config.startTime.split(':').map(Number);
+  const t=new Date(now); t.setHours(h,m,0,0);
+  if(t<=now) t.setDate(t.getDate()+1);
+  const s=Math.floor((t-now)/1000), mm=Math.floor(s/60), ss=s%60, hh=Math.floor(mm/60);
+
+  const timeStr = hh>0
+    ? `${hh}:${String(mm%60).padStart(2,'0')}:${String(ss).padStart(2,'0')}`
+    : `${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
+
+  // Bottom bar pill
+  const pill = document.getElementById('cdTime');
+  pill.textContent = timeStr;
+  pill.classList.toggle('urgent', s<60);
+
+  // Inline countdown below staff
+  const inlineCd   = document.getElementById('inlineCd');
+  const inlineTime = document.getElementById('inlineCdTime');
+
+  if (s <= TAKEOVER_THRESHOLD && s > 0) {
+    if (!takeoverActive) { takeoverActive = true; inlineCd.classList.add('visible'); }
+    inlineTime.textContent = timeStr;
+    inlineTime.classList.toggle('urgent', s < 60);
+  } else {
+    if (takeoverActive) { takeoverActive = false; inlineCd.classList.remove('visible'); }
+  }
+}
+updateCountdown(); setInterval(updateCountdown,1000);
+
+/* fullscreen — hide buttons, shift date right */
+function onFullscreenChange() {
+  const isFS = !!(document.fullscreenElement || document.webkitFullscreenElement);
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.style.opacity      = isFS ? '0' : '';
+    btn.style.pointerEvents= isFS ? 'none' : '';
+  });
+  const dateEl = document.getElementById('liveDate');
+  dateEl.style.marginLeft = isFS ? 'auto' : '';
+  dateEl.style.fontSize   = isFS ? '1rem' : '';
+  dateEl.style.fontWeight = isFS ? '600'  : '';
+}
+document.addEventListener('fullscreenchange', onFullscreenChange);
+document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+
+/* message swap */
+let msgIdx=0;
+function swapMsg() {
+  const el=document.getElementById('msgText');
+  el.classList.add('out');
+  setTimeout(()=>{
+    msgIdx=(msgIdx+1)%config.messages.length;
+    el.textContent=config.messages[msgIdx];
+    el.classList.remove('out'); el.classList.add('in');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.remove('in')));
+  },300);
+}
+setInterval(swapMsg,5000);
+
+/* modal */
+function openEdit()  { document.getElementById('overlay').classList.add('open'); populateForm(); }
+function closeEdit() { document.getElementById('overlay').classList.remove('open'); }
+
+function populateForm() {
+  document.getElementById('cfg-title').value    = config.title.replace('\n',' ');
+  document.getElementById('cfg-activity').value = config.activity;
+  document.getElementById('cfg-section').value  = config.section;
+  document.getElementById('cfg-time').value     = config.startTime;
+  document.getElementById('cfg-msgs').value     = config.messages.join('\n');
+  const rows=document.getElementById('staffRows');
+  rows.innerHTML='';
+  config.staff.forEach(s=>addStaffRow(s.name));
+}
+
+function addStaffRow(name='') {
+  const rows=document.getElementById('staffRows');
+  const div=document.createElement('div');
+  div.className='s-row';
+  div.innerHTML=`
+    <input type="text" value="${name}" placeholder="Name">
+    <button class="s-del" onclick="this.closest('.s-row').remove()">✕</button>
+  `;
+  rows.appendChild(div);
+}
+
+function applyConfig() {
+  config.title    = smartBreak(document.getElementById('cfg-title').value.trim());
+  config.activity = document.getElementById('cfg-activity').value.trim() || config.activity;
+  config.section  = document.getElementById('cfg-section').value.trim()  || config.section;
+  config.startTime= document.getElementById('cfg-time').value            || config.startTime;
+  config.messages = document.getElementById('cfg-msgs').value.split('\n').map(s=>s.trim()).filter(Boolean);
+  config.staff    = Array.from(document.querySelectorAll('#staffRows .s-row')).map(row=>({
+    name: row.querySelector('input').value.trim()||'Staff',
+  }));
+  renderAll();
+  saveConfig();
+  if(config.messages.length){msgIdx=0;document.getElementById('msgText').textContent=config.messages[0];}
+  closeEdit();
+}
+
+function smartBreak(t) {
+  if(t.length<14) return t;
+  const w=t.split(' '), m=Math.ceil(w.length/2);
+  return w.slice(0,m).join(' ')+'\n'+w.slice(m).join(' ');
+}
+
+function goFullscreen() {
+  const el=document.documentElement;
+  if(el.requestFullscreen) el.requestFullscreen();
+  else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+}
+document.addEventListener('keydown',e=>{
+  const open=document.getElementById('overlay').classList.contains('open');
+  if(!open&&(e.key==='f'||e.key==='F')) goFullscreen();
+  if(!open&&(e.key==='e'||e.key==='E')) openEdit();
+  if( open&& e.key==='Escape')          closeEdit();
+});
+document.getElementById('overlay').addEventListener('click',function(ev){if(ev.target===this)closeEdit();});
+</script>
+</body>
+</html>
