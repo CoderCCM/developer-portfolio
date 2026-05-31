@@ -11,13 +11,7 @@ export default function ScrollImage() {
       ([entry]) => {
         console.log('Intersection Observer Entry:', entry); // Log entry details
 
-        if (entry.isIntersecting) {
-          console.log('Image is in view!');
-          setIsInView(true); // Trigger effect when image enters viewport
-        } else {
-          console.log('Image is out of view!');
-          setIsInView(false); // Reset effect when it leaves
-        }
+        setIsInView(entry.isIntersecting);
       },
       {
         threshold: 0.5, // Trigger when 50% of the image is in view
