@@ -3,9 +3,9 @@ export const projectsData = [
         id: 1,
         title_name: 'Cloud-Based Telemetry',
         name: 'Illini Solar Car - Cloud-Based Telemetry System',
-        description: "Replacing the existing range-limited antenna telemetry system with a redundant, low-latency, cloud-based system. Streaming over 16,000 CAN messages per minute with local and cloud datalogging and >99% uptime. Supporting the system during competitions, allowing the team to track over 180 vital statistics in real-time.",
-        tools: ['Java', 'Android Studio', 'React', 'Python', 'MQTT', 'DigitalOcean'],
-        role: 'Full Stack Developer',
+        description: "Replaced the existing range-limited radio telemetry system with a redundant, low-latency, cloud-based system. Streaming over 16,000 CAN messages per minute with local and cloud datalogging and >99% uptime. Supporting the system during competitions, allowing the team to track over 180 vital statistics in real-time.",
+        tools: ['Java', 'C++', 'React', 'Python', 'MQTT', 'Docker', 'QuestDB', 'CAN', 'DigitalOcean', 'Azure', 'Android Studio'],
+        role: 'Full Stack Developer/Architect',
         code: '',
         demo: '',
     },
@@ -16,7 +16,7 @@ export const projectsData = [
         description: 'Designed a secure customer check-in and reporting system used by volunteers to serve over 200 families monthly. Automated mandated report generation, reducing monthly reporting time from 3 hours to 3 seconds. Halved customer check-in time, improving service efficiency and increasing customer throughput.',
         tools: ['Svelte', 'HTML', 'Javascript', 'CSS', 'AWS', 'Firebase'],
         code: '',
-        role: 'Full Stack Developer',
+        role: 'Full Stack Developer/Architect',
         demo: '',
     },
     {
@@ -37,7 +37,7 @@ export const projectsData = [
         tools: ['Java', 'Android Studio'],
         code: '',
         demo: '',
-        role: 'Java Developer',
+        role: 'Lead Programmer',
     }
 ];
 
