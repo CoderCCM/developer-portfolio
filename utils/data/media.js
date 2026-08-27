@@ -3,6 +3,7 @@ import rrstar_logo from "../../app/assets/svg/media/rrstar_logo.svg";
 import wrex_logo from "../../app/assets/svg/media/wrex_logo.svg";
 import sbd_logo from "../../app/assets/svg/media/sbd_logo.svg";
 import abc7_logo from "../../app/assets/svg/media/abc7_logo.svg";
+import heartlander_logo from "../../app/assets/svg/media/heartlander_logo.svg";
 
 export const mediaData = [
     {
@@ -20,11 +21,18 @@ export const mediaData = [
         published_at: 1644866340000
     },
     {
-        title: "Rockford Christian Student's Test Score Puts Him Among Smartest in the World | WREX",
+        title: "Inspiring 815: Connor Magnuson | WREX",
         description: "Was one of the only 335 students worldwide to earn a perfect score on the 2021 AP Computer Science Principles Exam.",
-        url: "https://www.wrex.com/news/featured-reports/rockford-christian-students-test-score-puts-him-among-smartest-in-the-world/article_bc39d8b2-9faa-11ec-ab21-076f4df08007.html",
+        url: "https://www.youtube.com/watch?v=kNjdbTMaPR8",
         cover_image: wrex_logo,
-        published_at: 1646818800000
+        published_at: 1646805600000
+    },
+    {
+        title: "Rockford Christian High School Student Achieves Rare Perfect Exam Score | Heartlander News",
+        description: "Was one of the only 335 students worldwide to earn a perfect score on the 2021 AP Computer Science Principles Exam.",
+        url: "https://heartlandernews.com/rockford-christian-high-school-student-achieves-rare-perfect-exam-score/",
+        cover_image: heartlander_logo,
+        published_at: 1644904800000
     },
     {
         title: "Four Youth Volunteers Will Receive 2023 Soap Box Derby Service Awards | ISBD",
