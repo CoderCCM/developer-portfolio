@@ -1,19 +1,26 @@
-import { BsPersonWorkspace, BsCarFront, BsEvStation, BsPhone } from "react-icons/bs";
+import { BsPersonWorkspace, BsCarFront, BsEvStation, BsPhone, BsRocketTakeoff } from "react-icons/bs";
 
 export const experiences = [
   {
-    id: 1,
-    title: 'Cloud Platforms and Telematics Intern',
-    company: "Ford Motor Company",
-    duration: "May - Aug 2026",
-    icon: <BsCarFront size={36} />
+    id: 0,
+    title: 'Starship Flight Software Engineer',
+    company: "SpaceX",
+    duration: "Starting Summer 2027",
+    icon: <BsRocketTakeoff size={36} />
   },
   {
-    id: 2,
+    id: 1,
     title: 'CS128 Senior Course Assistant',
     company: "Grainger College of Engineering",
     duration: "Jan 2025 - Present",
     icon: <BsPersonWorkspace size={36} />
+  },
+  {
+    id: 2,
+    title: 'Cloud Platforms and Telematics Intern',
+    company: "Ford Motor Company",
+    duration: "May - Aug 2026",
+    icon: <BsCarFront size={36} />
   },
   {
     id: 3,

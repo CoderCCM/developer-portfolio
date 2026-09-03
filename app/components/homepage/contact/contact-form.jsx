@@ -57,7 +57,7 @@ function ContactForm() {
     <div>
       <p className="font-medium mb-5 text-orange-600 text-xl uppercase">Contact Me</p>
       <div className="max-w-3xl text-white rounded-lg border border-[#464c6a] p-3 lg:p-5">
-        <p className="text-sm text-[#d3d8e8]">{"I'm open to employment, internships, and freelance opportunities. Feel free to reach out!"}</p>
+        <p className="text-sm text-[#d3d8e8]">{"Feel free to reach out!"}</p>
         <div className="mt-6 flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <label className="text-base">Your Name: </label>
